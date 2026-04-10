@@ -14,6 +14,9 @@ abstract contract CodeConstants {
     uint96 public constant MOCK_GAS_PRICE_LINK = 1e9;
     // LINK / ETH price
     int256 public constant MOCK_WEI_PER_UINT_LINK = 4e15;
+
+    address public constant FOUNDRY_DEFAULT_SENDER =
+        0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38;
 }
 
 contract HelperConfig is Script, CodeConstants{
@@ -28,6 +31,7 @@ contract HelperConfig is Script, CodeConstants{
         uint256 subscriptionId;
         uint32 callbackGasLimit;
         address link;
+        address account;
     }
     NetworkConfig public localNetworkConfig;
     mapping (uint256 chainId => NetworkConfig) public networkConfigs;
@@ -58,7 +62,8 @@ contract HelperConfig is Script, CodeConstants{
             keyHash: 0x787d74caea10b2b357790d5b5247c2f63d1d91572a9846f780606e4d953677ae,
             callbackGasLimit: 500000,
             subscriptionId: 75643300630204881105876678556618635145479478927563680094905003694826963425095,
-            link: 0x779877A7B0D9E8603169DdbD7836e478b4624789
+            link: 0x779877A7B0D9E8603169DdbD7836e478b4624789,
+            account: 0x4C81a5e70B634C01c3a33A8DD4330a48a7C3D4DF
         });
     }
 
@@ -83,7 +88,8 @@ contract HelperConfig is Script, CodeConstants{
             keyHash: 0x787d74caea10b2b357790d5b5247c2f63d1d91572a9846f780606e4d953677ae, // This can be any value for local testing
             callbackGasLimit: 500000,
             subscriptionId: 0, // We will set this to the subscription ID returned by the mock VRF Coordinator after creating a subscription
-            link: address(linkToken)
+            link: address(linkToken),
+            account: FOUNDRY_DEFAULT_SENDER
          });
          return localNetworkConfig;
     }
